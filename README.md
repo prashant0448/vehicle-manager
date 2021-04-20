@@ -1,2 +1,2 @@
-# vehicle-manager
-vehicle management
+# vehicle-manager 
+Adapter to manage vehicle details
