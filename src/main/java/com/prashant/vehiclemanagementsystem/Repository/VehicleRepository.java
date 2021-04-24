@@ -10,6 +10,6 @@ import java.util.UUID;
 @Repository
 public interface VehicleRepository extends JpaRepository<VehicleEntity, Long> {
 
-    @Query("from VehicleEntity v where v.uuid =?1 ")
+    @Query("from VehicleEntity v where v.uuid =?1")
     public VehicleEntity findByUUID(UUID uuid);
 }
