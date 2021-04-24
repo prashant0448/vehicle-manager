@@ -1,5 +1,7 @@
-package com.prashant.vehiclemanagementsystem;
+package com.prashant.vehiclemanagementsystem.Controller;
 
+import com.prashant.vehiclemanagementsystem.Entity.VehicleEntity;
+import com.prashant.vehiclemanagementsystem.Repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +28,11 @@ public class VehicleController<findNonCrossBadgeVehicle> {
         VehicleEntity vehicleEntity1=vehicleRepository.findById(vin).get();
         vehicleEntity1.setBrand(vehicleEntity.getBrand());
         vehicleEntity1.setMasterBrand(vehicleEntity.getMasterBrand());
-        vehicleEntity1.setDeviceMasterBrand(vehicleEntity.getDeviceMasterBrand());
-        vehicleEntity1.setCrossBadged(vehicleEntity.getCrossBadged());
+        vehicleEntity1.setColor(vehicleEntity.getColor());
+        vehicleEntity1.setRegion(vehicleEntity.getRegion());
+        vehicleEntity1.setCanArchitecture(vehicleEntity.getCanArchitecture());
+        vehicleEntity1.setEngineType(vehicleEntity.getEngineType());
+        vehicleEntity1.setUpdatededDate(vehicleEntity.getUpdatededDate());
         return ResponseEntity.ok(vehicleRepository.save(vehicleEntity1));
     }
 
@@ -41,10 +46,5 @@ public class VehicleController<findNonCrossBadgeVehicle> {
     public VehicleEntity getVehicleByVIN(@PathVariable(value = "vin")Long vin )
     {
         return vehicleRepository.findById(vin).get();
-    }
-
-    @GetMapping("/get-native-vehicle")
-    public  List<VehicleEntity> findNativeVehicle(){
-        return vehicleRepository.findNonCrossBadgeVehicle();
     }
 }
