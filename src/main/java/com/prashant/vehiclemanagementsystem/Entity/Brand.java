@@ -21,8 +21,8 @@ public enum Brand {
     MercedesBenz(MasterBrand.MercedesBenz),
     Infiniti(MasterBrand.Nissan),
     Datsun(MasterBrand.Nissan),
-    Alpine(MasterBrand.Renualt),
-    Dacia(MasterBrand.Renualt);
+    Alpine(MasterBrand.Renault),
+    Dacia(MasterBrand.Renault);
 
     private final MasterBrand masterBrand;
     public enum MasterBrand
@@ -30,7 +30,7 @@ public enum Brand {
         Volkswagen,
         Tata,
         Nissan,
-        Renualt,
+        Renault,
         Toyota,
         BMW,
         MercedesBenz;

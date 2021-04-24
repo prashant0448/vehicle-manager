@@ -7,7 +7,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -26,6 +25,7 @@ public class VehicleEntity {
     private UUID uuid;
 
     @Column(name = "brand", nullable = false, length = 20)
+    @Enumerated(EnumType.STRING)
     private Brand brand;
 
     @Column(name = "master_brand", nullable = false, length = 20)
@@ -53,5 +53,5 @@ public class VehicleEntity {
 
     @Column(name="updated_date")
     @LastModifiedDate
-    private Timestamp updatededDate;
+    private Instant updatedDate;
 }

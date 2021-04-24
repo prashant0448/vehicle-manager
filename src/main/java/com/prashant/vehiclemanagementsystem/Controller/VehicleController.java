@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 
 @RestController
@@ -19,6 +22,7 @@ public class VehicleController<findNonCrossBadgeVehicle> {
     @PostMapping("/create-vehicle")
     public VehicleEntity createVehicle(@RequestBody VehicleEntity vehicleEntity)
     {
+        System.out.println(vehicleEntity.toString());
         return vehicleRepository.save(vehicleEntity);
     }
 
@@ -32,7 +36,7 @@ public class VehicleController<findNonCrossBadgeVehicle> {
         vehicleEntity1.setRegion(vehicleEntity.getRegion());
         vehicleEntity1.setCanArchitecture(vehicleEntity.getCanArchitecture());
         vehicleEntity1.setEngineType(vehicleEntity.getEngineType());
-        vehicleEntity1.setUpdatededDate(vehicleEntity.getUpdatededDate());
+        vehicleEntity1.setUpdatedDate(vehicleEntity.getUpdatedDate());
         return ResponseEntity.ok(vehicleRepository.save(vehicleEntity1));
     }
 
@@ -47,4 +51,22 @@ public class VehicleController<findNonCrossBadgeVehicle> {
     {
         return vehicleRepository.findById(vin).get();
     }
+
+    @GetMapping("/get-vehicle-by-uuid/{uuid}")
+    public VehicleEntity getVehicleByUUID(@PathVariable(value = "uuid") UUID uuid )
+    {
+        return vehicleRepository.findByUUID(uuid);
+    }
+
+    @DeleteMapping("/remove-vehicle/{vin}")
+    public Map<String, Boolean> deleteEmployee(@PathVariable(value = "vin") Long vin)
+    {
+        VehicleEntity vehicleEntity = vehicleRepository.findById(vin).get();
+        vehicleRepository.delete(vehicleEntity);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return response;
+    }
+
+
 }
