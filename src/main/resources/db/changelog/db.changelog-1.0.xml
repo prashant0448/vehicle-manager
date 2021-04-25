@@ -5,40 +5,12 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet  author="prashant" logicalFilePath="path-independent" id="add-temporary-column">
+    <!--<changeSet id="remove-temp-column-again" author="prashant" logicalFilePath="path-independent">
         <preConditions onFail="MARK_RAN">
-            <not>
-                <columnExists tableName="vehicle" columnName="temp_brand"/>
-            </not>
+            <columnExists tableName="vehicle" columnName="temp_brand"/>
         </preConditions>
-        <addColumn tableName="vehicle">
-            <column name="temp_brand" type="varchar(20)"/>
-        </addColumn>
-        <update tableName="vehicle">
-            <column name="temp_brand" value="NISSAN"/>
-            <where>master_brand = 'NISSAN' AND temp_brand is null</where>
-        </update>
-        <update tableName="vehicle">
-            <column name="temp_brand" value="RENAULT"/>
-            <where>master_brand = 'RENAULT'  AND temp_brand is null</where>
-        </update>
-        <update tableName="vehicle">
-            <column name="temp_brand" value="MITSUBISHI"/>
-            <where>master_brand = 'MITSUBISHI'  AND temp_brand is null</where>
-        </update>
-    </changeSet>
-
-    <changeSet id="update-cross-badge" author="prashant">
-        <update tableName="vehicle">
-            <column name="is_cross_badged" value="false"/>
-            <where>master_brand=device_master_brand and is_cross_badged is null</where>
-        </update>
-    </changeSet>
-    <changeSet  author="prashant" logicalFilePath="path-independent" id="update-temp-column">
-        <sql>
-            UPDATE vehicle
-            SET temp_brand=master_brand
-            WHERE temp_brand is null;
-        </sql>
-    </changeSet>
+        <dropColumn tableName="vehicle">
+            <column name="temp_brand"/>
+        </dropColumn>
+    </changeSet>-->
 </databaseChangeLog>

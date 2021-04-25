@@ -1,10 +1,15 @@
-package com.prashant.vehiclemanagementsystem;
+package com.prashant.vehiclemanagementsystem.Controller;
 
+import com.prashant.vehiclemanagementsystem.Entity.VehicleEntity;
+import com.prashant.vehiclemanagementsystem.Repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 
 @RestController
@@ -17,6 +22,7 @@ public class VehicleController<findNonCrossBadgeVehicle> {
     @PostMapping("/create-vehicle")
     public VehicleEntity createVehicle(@RequestBody VehicleEntity vehicleEntity)
     {
+        System.out.println(vehicleEntity.toString());
         return vehicleRepository.save(vehicleEntity);
     }
 
@@ -26,8 +32,11 @@ public class VehicleController<findNonCrossBadgeVehicle> {
         VehicleEntity vehicleEntity1=vehicleRepository.findById(vin).get();
         vehicleEntity1.setBrand(vehicleEntity.getBrand());
         vehicleEntity1.setMasterBrand(vehicleEntity.getMasterBrand());
-        vehicleEntity1.setDeviceMasterBrand(vehicleEntity.getDeviceMasterBrand());
-        vehicleEntity1.setCrossBadged(vehicleEntity.getCrossBadged());
+        vehicleEntity1.setColor(vehicleEntity.getColor());
+        vehicleEntity1.setRegion(vehicleEntity.getRegion());
+        vehicleEntity1.setCanArchitecture(vehicleEntity.getCanArchitecture());
+        vehicleEntity1.setEngineType(vehicleEntity.getEngineType());
+        vehicleEntity1.setUpdatedDate(vehicleEntity.getUpdatedDate());
         return ResponseEntity.ok(vehicleRepository.save(vehicleEntity1));
     }
 
@@ -43,8 +52,21 @@ public class VehicleController<findNonCrossBadgeVehicle> {
         return vehicleRepository.findById(vin).get();
     }
 
-    @GetMapping("/get-native-vehicle")
-    public  List<VehicleEntity> findNativeVehicle(){
-        return vehicleRepository.findNonCrossBadgeVehicle();
+    @GetMapping("/get-vehicle-by-uuid/{uuid}")
+    public VehicleEntity getVehicleByUUID(@PathVariable(value = "uuid") UUID uuid )
+    {
+        return vehicleRepository.findByUUID(uuid);
     }
+
+    @DeleteMapping("/remove-vehicle/{vin}")
+    public Map<String, Boolean> deleteEmployee(@PathVariable(value = "vin") Long vin)
+    {
+        VehicleEntity vehicleEntity = vehicleRepository.findById(vin).get();
+        vehicleRepository.delete(vehicleEntity);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return response;
+    }
+
+
 }
